@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/bookCollectionFragment">
+
+    <fragment
+        android:id="@+id/bookCollectionFragment"
+        android:name="com.hfad.bookcollectionmanager.BookCollectionFragment"
+        android:label="Book Shelf"
+        tools:layout="@layout/fragment_book_collection" >
+        <action
+            android:id="@+id/action_bookFragment_to_addBookFragment"
+            app:destination="@id/addBookFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addBookFragment"
+        android:name="com.hfad.bookcollectionmanager.AddBookFragment"
+        android:label="Add Book"
+        tools:layout="@layout/fragment_add_book" />
+</navigation>
