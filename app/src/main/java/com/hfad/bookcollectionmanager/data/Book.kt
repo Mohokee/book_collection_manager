@@ -2,6 +2,7 @@ package com.hfad.bookcollectionmanager.data
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+
 import androidx.room.PrimaryKey
 
 //Define Database name, column names, and data types
@@ -17,7 +18,7 @@ data class Book(
     var author : String = "",
 
     @ColumnInfo(name = "tags")
-    var tags: List<String> = listOf<String>(),
+    var tags: String = "",
 
     @ColumnInfo(name = "description")
     var description: String = ""

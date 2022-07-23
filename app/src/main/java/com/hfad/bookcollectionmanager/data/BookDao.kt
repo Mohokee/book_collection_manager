@@ -18,6 +18,10 @@ interface BookDao {
     @Query("SELECT * FROM book_table WHERE bookId = :bookId")
     fun get(bookId:Long) : LiveData<Book>
 
+    @Query("SELECT * FROM book_table WHERE bookId = :bookId")
+    fun getBook(bookId:Long) : Book
+
     @Query("SELECT * FROM book_table ORDER BY bookId DESC")
     fun getAll() : LiveData<List<Book>>
+
 }
