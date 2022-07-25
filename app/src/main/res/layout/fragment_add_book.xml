@@ -4,6 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".AddBookFragment"
     >
+    <data>
+        <variable
+            name="viewModel"
+            type="com.hfad.bookcollectionmanager.viewmodels.AddBookViewModel" />
+    </data>
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,6 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="text"
+        android:text="@={viewModel.addTitle}"
         android:hint="@string/book_title"/>
 
     <EditText
@@ -23,13 +29,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="text"
-        android:hint="@string/author"/>
+        android:hint="@string/author"
+        android:text="@={viewModel.addAuthor}"/>
 
     <EditText
         android:id="@+id/tags"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="text"
+        android:text="@={viewModel.addTags}"
         android:hint="@string/tags"/>
 
     <EditText
@@ -37,6 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
+        android:text="@={viewModel.addDescription}"
         android:hint="@string/book_description"/>
 
     <Button
@@ -44,6 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:onClick="@{()-> viewModel.addBook()}"
         android:text="@string/add_book_button"
         />
 </LinearLayout>
