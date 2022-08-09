@@ -13,10 +13,28 @@
         <action
             android:id="@+id/action_bookFragment_to_addBookFragment"
             app:destination="@id/addBookFragment" />
+        <action
+            android:id="@+id/action_bookCollectionFragment_to_bookDetailsFragment"
+            app:destination="@id/bookDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/addBookFragment"
         android:name="com.hfad.bookcollectionmanager.AddBookFragment"
         android:label="Add Book"
         tools:layout="@layout/fragment_add_book" />
+    <fragment
+        android:id="@+id/bookDetailsFragment"
+        android:name="com.hfad.bookcollectionmanager.BookDetailsFragment"
+        android:label="Book Details"
+        tools:layout="@layout/fragment_book_details">
+        <argument
+            android:name="bookId"
+            app:argType="long"
+            />
+        <action
+            android:id="@+id/action_bookDetailsFragment_to_bookCollectionFragment"
+            app:destination="@id/bookCollectionFragment" />
+    </fragment>
+
+
 </navigation>

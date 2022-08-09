@@ -11,7 +11,7 @@ import kotlinx.coroutines.internal.synchronized
 
 //Creates class that creates database instance in a companion object so
 //
-@Database(entities = [Book::class], version = 6, exportSchema = false)
+@Database(entities = [Book::class], version = 7, exportSchema = false)
 abstract class BookDatabase :RoomDatabase() {
     //define dao
     abstract val bookDao: BookDao

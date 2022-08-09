@@ -2,15 +2,15 @@
     <!-- Base application theme. -->
     <style name="Theme.BookCollectionManager" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/crimson</item>
-        <item name="colorPrimaryVariant">@color/dusty_red</item>
-        <item name="colorOnPrimary">@color/dark_brown</item>
+        <item name="colorPrimary">#8cd1f6</item>
+        <item name="colorPrimaryVariant">#79C6BC</item>
+        <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/tan</item>
-        <item name="colorSecondaryVariant">@color/tan</item>
+        <item name="colorSecondary">#F38977</item>
+        <item name="colorSecondaryVariant">#FFD27F</item>
         <item name="colorOnSecondary">@color/dark_brown</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
 </resources>

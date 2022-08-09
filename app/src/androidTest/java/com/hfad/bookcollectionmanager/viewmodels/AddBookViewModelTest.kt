@@ -36,6 +36,7 @@ class AddBookViewModelTest {
     }
 
 
+    //Test adding a book to the database, check if the author is the same as entered
     @Test
     @Throws(Exception::class)
     fun addBook() {
