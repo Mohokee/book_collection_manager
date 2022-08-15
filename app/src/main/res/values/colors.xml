@@ -2,9 +2,9 @@
 <resources>
     <color name="accent">#FFD27F</color>
     <color name="primaryBlue">#8cd1f6</color>
-    <color name="primaryBlueVariant">#79C6BC</color>
+    <color name="primaryBlueVariant">#2B4642</color>
     <color name="yellowAccent">#FFD27F</color>
     <color name="redAccent">#F38977</color>
-    <color name="dark_brown">#100202</color>
+    <color name="dark_brown">#3D2D2D</color>
     <color name="white">#FFFFFF</color>
 </resources>

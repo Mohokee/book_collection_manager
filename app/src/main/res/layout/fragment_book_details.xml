@@ -1,59 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <layout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        tools:context=".BookDetailsFragment"
-        >
-        <data>
-            <variable
-                name="viewModel"
-                type="com.hfad.bookcollectionmanager.viewmodels.BookDetailsViewModel" />
-        </data>
-        <LinearLayout
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".BookDetailsFragment">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.hfad.bookcollectionmanager.viewmodels.BookDetailsViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="16dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_margin="16dp"
-            >
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@={viewModel.book.title}"
-                />
-            <TextView
-                android:id="@+id/author"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@={viewModel.book.author}"
-                />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="@{viewModel.book.title}"
+            android:textSize="30sp" />
 
-            <TextView
-                android:id="@+id/tags"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@={viewModel.book.tags}"
-                />
 
-            <TextView
-                android:id="@+id/description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@={viewModel.book.description}"
-                />
-            <Button
-                android:id="@+id/to_edit_book_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Edit Book Details"
-                />
-            <Button
-                android:id="@+id/delete_book"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Delete Book"
-                />
-        </LinearLayout>
-    </layout>
+        <TextView
+            android:id="@+id/author"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="@{viewModel.book.author}"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/tags"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="@{`Tags: `  + viewModel.book.tags}"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="@{`Description: ` +  viewModel.book.description}"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/to_edit_book_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Edit Details" />
+
+        <Button
+            android:id="@+id/delete_book"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:onClick="@{()-> viewModel.deleteBook()}"
+            android:text="Delete Book" />
+    </LinearLayout>
+</layout>

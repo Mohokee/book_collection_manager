@@ -21,7 +21,11 @@
         android:id="@+id/addBookFragment"
         android:name="com.hfad.bookcollectionmanager.AddBookFragment"
         android:label="Add Book"
-        tools:layout="@layout/fragment_add_book" />
+        tools:layout="@layout/fragment_add_book" >
+        <action
+            android:id="@+id/action_addBookFragment_to_bookCollectionFragment"
+            app:destination="@id/bookCollectionFragment" />
+    </fragment>
     <fragment
         android:id="@+id/bookDetailsFragment"
         android:name="com.hfad.bookcollectionmanager.BookDetailsFragment"
@@ -33,6 +37,22 @@
             />
         <action
             android:id="@+id/action_bookDetailsFragment_to_bookCollectionFragment"
+            app:destination="@id/bookCollectionFragment" />
+        <action
+            android:id="@+id/action_bookDetailsFragment_to_editBookFragment"
+            app:destination="@id/editBookFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editBookFragment"
+        android:name="com.hfad.bookcollectionmanager.EditBookFragment"
+        android:label="fragment_edit_book"
+        tools:layout="@layout/fragment_edit_book" >
+        <argument
+            android:name="bookId"
+            app:argType="long"
+            />
+        <action
+            android:id="@+id/action_editBookFragment_to_bookCollectionFragment"
             app:destination="@id/bookCollectionFragment" />
     </fragment>
 

@@ -9,7 +9,7 @@
         />
     <item
         android:icon="@drawable/colorful_books"
-        android:title="@string/options_menu"
+        android:title="Book Collection"
         app:showAsAction="always"
         />
 </menu>

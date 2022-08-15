@@ -48,6 +48,7 @@ class BookCollectionFragment : Fragment() {
         }
         binding.bookListView.adapter = adapter
 
+
         //pass data to adapter
         viewModel.books.observe(viewLifecycleOwner, Observer {
             it?.let{
@@ -64,8 +65,6 @@ class BookCollectionFragment : Fragment() {
                 viewModel.bookNavigatedTo()
             }
         })
-
-
 
         // Inflate the layout for this fragment
         return view

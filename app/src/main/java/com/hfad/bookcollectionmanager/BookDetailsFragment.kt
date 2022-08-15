@@ -4,8 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.hfad.bookcollectionmanager.data.BookDatabase
 import com.hfad.bookcollectionmanager.databinding.FragmentBookDetailsBinding
 import com.hfad.bookcollectionmanager.viewmodels.BookDetailsViewModel
@@ -33,6 +37,26 @@ class BookDetailsFragment : Fragment() {
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+
+        binding.toEditBookButton.setOnClickListener {
+            val action = BookDetailsFragmentDirections
+                .actionBookDetailsFragmentToEditBookFragment(bookId)
+            this.findNavController().navigate(action)
+        }
+
+        viewModel.status.observe(viewLifecycleOwner, Observer { status ->
+            status?.let {
+                viewModel.resetStatus()
+
+                //Toast
+                Toast.makeText(context,"Book Deleted", Toast.LENGTH_LONG).show()
+
+                //Navigate back to book details page
+                view.findNavController()
+                    .navigate(R.id.action_bookDetailsFragment_to_bookCollectionFragment)
+
+            }
+        })
 
         return view
     }

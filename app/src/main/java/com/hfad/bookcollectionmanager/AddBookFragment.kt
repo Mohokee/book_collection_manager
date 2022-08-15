@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import com.hfad.bookcollectionmanager.data.BookDatabase
 import com.hfad.bookcollectionmanager.databinding.FragmentAddBookBinding
 import com.hfad.bookcollectionmanager.viewmodels.AddBookViewModel
@@ -15,7 +16,10 @@ import com.hfad.bookcollectionmanager.viewmodels.AddBookViewModelFactory
 
 
 class AddBookFragment : Fragment() {
+    //Binding backing variable, can be null
     private var _binding : FragmentAddBookBinding? = null
+
+    //Read only version of binding, cannot be null
     private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,9 +41,16 @@ class AddBookFragment : Fragment() {
 
         viewModel.status.observe(viewLifecycleOwner, Observer { status ->
             status?.let {
-                //set to null so it won't be triggered again
-                viewModel.status.value = null
+                //Set to null so it won't be triggered again, using viewModel method
+                viewModel.resetStatus()
+
+                //Toast
                 Toast.makeText(context,"Book Added",Toast.LENGTH_LONG).show()
+
+                //Navigate back to book collection page
+                view.findNavController()
+                    .navigate(R.id.action_addBookFragment_to_bookCollectionFragment)
+
             }
         })
 

@@ -1,5 +1,6 @@
 package com.hfad.bookcollectionmanager.viewmodels
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -19,8 +20,11 @@ class AddBookViewModel(val dao:BookDao) : ViewModel() {
     var addTags = ""
     var addDescription = ""
 
-    //create a livedata value to observe from AddBookFragment so it knows when to Toast
-    var status = MutableLiveData<Boolean?>()
+    //create a mutable livedata value to observe from AddBookFragment so it knows when to Toast
+    private val _status = MutableLiveData<Boolean?>()
+    //read only public version of status val
+    val status : LiveData<Boolean?>
+        get() = _status
 
 
     fun addBook() {
@@ -30,6 +34,10 @@ class AddBookViewModel(val dao:BookDao) : ViewModel() {
             dao.insert(book)
         }
         //It's time for the fragment to Toast
-        status.value = true
+        _status.value = true
+    }
+    //reset status val back to null
+    fun resetStatus() {
+        _status.value = null
     }
 }
