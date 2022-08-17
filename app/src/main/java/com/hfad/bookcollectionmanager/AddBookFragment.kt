@@ -2,6 +2,7 @@ package com.hfad.bookcollectionmanager
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -18,6 +19,12 @@ import com.hfad.bookcollectionmanager.viewmodels.AddBookViewModelFactory
 class AddBookFragment : Fragment() {
     //Binding backing variable, can be null
     private var _binding : FragmentAddBookBinding? = null
+
+    //This fragment will be editing the activity's toolbar
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     //Read only version of binding, cannot be null
     private val binding get() = _binding!!
@@ -56,6 +63,13 @@ class AddBookFragment : Fragment() {
 
         // Inflate the layout for this fragment
         return view
+    }
+
+    //Hide the search icon on the activity's toolbar
+    override fun onPrepareOptionsMenu(menu: Menu){
+        super.onPrepareOptionsMenu(menu)
+        val item = menu.findItem(R.id.action_search)
+        item.isVisible = false
     }
 
     override fun onDestroyView() {

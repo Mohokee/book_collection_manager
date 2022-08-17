@@ -3,11 +3,23 @@ package com.hfad.bookcollectionmanager.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import com.hfad.bookcollectionmanager.data.BookDao
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flatMapLatest
 
 class BookCollectionViewModel(val dao:BookDao) : ViewModel() {
+    //Create a search query val
+    val searchQuery = MutableStateFlow("")
+
+    private val bookFlow = searchQuery.flatMapLatest {
+        dao.searchBooks(it)
+    }
+
     //Get a list of all books from the dao
-    val books = dao.getAll()
+    val books = bookFlow.asLiveData()
+    //val books = dao.getAll()
+
 
     //provide the book ID so that Book Collection can pass it to
     //Book Details, the read/write private and could be null

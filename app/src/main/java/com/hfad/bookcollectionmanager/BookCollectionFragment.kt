@@ -1,16 +1,17 @@
 package com.hfad.bookcollectionmanager
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.hfad.bookcollectionmanager.adapters.BookAdapter
 import com.hfad.bookcollectionmanager.data.BookDatabase
 import com.hfad.bookcollectionmanager.databinding.FragmentBookCollectionBinding
+import com.hfad.bookcollectionmanager.utilities.onQueryTextChanged
 import com.hfad.bookcollectionmanager.viewmodels.BookCollectionViewModel
 import com.hfad.bookcollectionmanager.viewmodels.BookCollectionViewModelFactory
 
@@ -23,6 +24,17 @@ class BookCollectionFragment : Fragment() {
     //Create data binding variables
     private var _binding: FragmentBookCollectionBinding? = null
     private val binding get() = _binding!!
+
+
+    private val viewModel: BookCollectionViewModel by viewModels()
+
+    private lateinit var searchView: SearchView
+
+    //This fragment will be editing the activity's toolbar
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     //Create the view
     override fun onCreateView(
@@ -66,9 +78,39 @@ class BookCollectionFragment : Fragment() {
             }
         })
 
-        // Inflate the layout for this fragment
+        // FAB navigate to Add Book
+        binding.fab.setOnClickListener {
+            val action = BookCollectionFragmentDirections
+                .actionBookFragmentToAddBookFragment()
+            this.findNavController().navigate(action)
+        }
+
+
+            // Inflate the layout for this fragment
         return view
     }
+
+
+    //Inflate the menu, and add search functionality
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+
+        val searchBook = menu.findItem(R.id.action_search)
+        val searchView = searchBook.actionView as SearchView
+
+
+        //Call SearchExt for SearchView to filter search
+        searchView.onQueryTextChanged {
+            viewModel.searchQuery.value = it
+        }
+    }
+
+    //Hide the Book Shelf option on the activity's toolbar
+    override fun onPrepareOptionsMenu(menu: Menu){
+        super.onPrepareOptionsMenu(menu)
+        val item = menu.findItem(R.id.bookCollectionFragment)
+        item.isVisible = false
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

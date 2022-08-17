@@ -2,6 +2,7 @@ package com.hfad.bookcollectionmanager.data
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import kotlinx.coroutines.flow.Flow
 
 //Define Data Access Object CRUD AND Custom Queries
 @Dao
@@ -23,5 +24,11 @@ interface BookDao {
 
     @Query("SELECT * FROM book_table ORDER BY bookId DESC")
     fun getAll() : LiveData<List<Book>>
+
+    @Query("SELECT * FROM book_table WHERE title LIKE '%'||:searchQuery ||'%' " +
+            "OR author LIKE '%'||:searchQuery ||'%' " +
+            "OR tags LIKE '%'||:searchQuery ||'%'" +
+            "OR description LIKE '%'||:searchQuery ||'%' ORDER BY title DESC")
+    fun searchBooks(searchQuery : String) : Flow<List<Book>>
 
 }

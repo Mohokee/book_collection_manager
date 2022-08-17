@@ -45,12 +45,11 @@
     <fragment
         android:id="@+id/editBookFragment"
         android:name="com.hfad.bookcollectionmanager.EditBookFragment"
-        android:label="fragment_edit_book"
-        tools:layout="@layout/fragment_edit_book" >
+        android:label="Edit Book"
+        tools:layout="@layout/fragment_edit_book">
         <argument
             android:name="bookId"
-            app:argType="long"
-            />
+            app:argType="long" />
         <action
             android:id="@+id/action_editBookFragment_to_bookCollectionFragment"
             app:destination="@id/bookCollectionFragment" />
