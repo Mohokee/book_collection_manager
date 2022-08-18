@@ -54,6 +54,15 @@
             android:id="@+id/action_editBookFragment_to_bookCollectionFragment"
             app:destination="@id/bookCollectionFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/exploreNewBooksFragment"
+        android:name="com.hfad.bookcollectionmanager.ExploreNewBooksFragment"
+        android:label="fragment_explore_new_books"
+        tools:layout="@layout/fragment_explore_new_books" >
+        <action
+            android:id="@+id/action_exploreNewBooksFragment_to_bookCollectionFragment"
+            app:destination="@id/bookCollectionFragment" />
+    </fragment>
 
 
 </navigation>

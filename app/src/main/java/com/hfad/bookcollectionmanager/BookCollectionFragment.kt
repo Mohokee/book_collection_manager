@@ -25,8 +25,7 @@ class BookCollectionFragment : Fragment() {
     private var _binding: FragmentBookCollectionBinding? = null
     private val binding get() = _binding!!
 
-
-    private val viewModel: BookCollectionViewModel by viewModels()
+    private val viewModel : BookCollectionViewModel by viewModels()
 
     private lateinit var searchView: SearchView
 
@@ -93,9 +92,21 @@ class BookCollectionFragment : Fragment() {
 
     //Inflate the menu, and add search functionality
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-
+        //get the search view item and set it as a Search View
         val searchBook = menu.findItem(R.id.action_search)
-        val searchView = searchBook.actionView as SearchView
+
+        searchView = searchBook.actionView as SearchView
+
+        //Restore the search query if the screen is rotated
+        val pendingQuery = viewModel.searchQuery.value
+
+        //If there was a search query in the bar on fragment rotation destruction,
+        //expand the search view and set the query to pendingQuery
+        if(pendingQuery != null && pendingQuery.isNotEmpty()){
+            //searchBook.expandActionView()
+            searchBook.expandActionView()
+            searchView.setQuery(pendingQuery,false)
+        }
 
 
         //Call SearchExt for SearchView to filter search
@@ -115,6 +126,7 @@ class BookCollectionFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        searchView.setOnQueryTextListener(null)
     }
 
 }

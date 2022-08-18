@@ -12,6 +12,8 @@ class BookCollectionViewModel(val dao:BookDao) : ViewModel() {
     //Create a search query val
     val searchQuery = MutableStateFlow("")
 
+    //Use a flow to stream all the books in the database that fit a query,
+    //will get all books if there is no query
     private val bookFlow = searchQuery.flatMapLatest {
         dao.searchBooks(it)
     }

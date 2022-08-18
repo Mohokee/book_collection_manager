@@ -11,5 +11,6 @@
     <string name="search">Search</string>
     <string name="book_collection">Book Collection</string>
     <string name="find_new_books">Find New Books</string>
+    <string name="subject">Subject</string>
 
 </resources>

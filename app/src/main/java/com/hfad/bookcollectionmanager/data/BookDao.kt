@@ -22,13 +22,10 @@ interface BookDao {
     @Query("SELECT * FROM book_table WHERE bookId = :bookId")
     fun getBook(bookId:Long) : Book
 
-    @Query("SELECT * FROM book_table ORDER BY bookId DESC")
-    fun getAll() : LiveData<List<Book>>
-
     @Query("SELECT * FROM book_table WHERE title LIKE '%'||:searchQuery ||'%' " +
             "OR author LIKE '%'||:searchQuery ||'%' " +
             "OR tags LIKE '%'||:searchQuery ||'%'" +
-            "OR description LIKE '%'||:searchQuery ||'%' ORDER BY title DESC")
+            "OR description LIKE '%'||:searchQuery ||'%'")
     fun searchBooks(searchQuery : String) : Flow<List<Book>>
 
 }
