@@ -44,14 +44,16 @@ class BookCollectionFragment : Fragment() {
         _binding = FragmentBookCollectionBinding.inflate(inflater,container,false)
         val view = binding.root
 
-        //Set Application and Data Access Object variables
+        //Set Application and Data Access Object values
         val application = requireNotNull(this.activity).application
         val dao = BookDatabase.getInstance(application).bookDao
 
         val viewModelFactory = BookCollectionViewModelFactory(dao)
         val viewModel = ViewModelProvider(this, viewModelFactory)[BookCollectionViewModel::class.java]
 
+        //Gives binding access to viewModel
         binding.viewModel = viewModel
+        //Allows observation of livedata
         binding.lifecycleOwner = viewLifecycleOwner
 
         val adapter = BookAdapter {bookId ->

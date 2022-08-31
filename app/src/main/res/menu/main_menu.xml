@@ -17,7 +17,7 @@
         />
 
     <item
-        android:id="@+id/action_exploreNewBooksFragment_to_bookCollectionFragment"
+        android:id="@+id/exploreNewBooksFragment"
         android:title="@string/find_new_books"
         app:showAsAction="never"
         />

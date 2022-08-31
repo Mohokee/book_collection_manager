@@ -11,10 +11,20 @@
             type="com.hfad.bookcollectionmanager.viewmodels.ExploreNewBooksViewModel" />
     </data>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/test"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
 
         <androidx.appcompat.widget.SearchView
             android:layout_width="match_parent"
@@ -35,14 +45,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:checked="true">
+            app:singleSelection="true">
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/author"
+                android:id="@+id/subject"
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/author" />
+                android:checked="true"
+                android:text="@string/subject" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/title"
@@ -52,11 +63,11 @@
                 android:text="@string/book_title" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/subject"
+                android:id="@+id/author"
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/subject" />
+                android:text="@string/author" />
 
         </com.google.android.material.chip.ChipGroup>
 
@@ -66,4 +77,5 @@
             android:layout_height="match_parent" />
 
     </LinearLayout>
+    </ScrollView>
 </layout>
