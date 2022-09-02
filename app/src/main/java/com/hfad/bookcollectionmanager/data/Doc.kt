@@ -13,5 +13,5 @@ data class Doc(
     val title: String? = null,
     @Json(name="isbn")
     val isbn: List<String>? = null,
-    val cover: String = "https://covers.openlibrary.org/b/isbn/${isbn?.get(0)}-S.jpg"
+    val cover: String = "https://covers.openlibrary.org/b/isbn/${isbn?.get(0)}-M.jpg"
 )

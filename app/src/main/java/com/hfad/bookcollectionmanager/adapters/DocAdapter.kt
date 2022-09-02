@@ -3,6 +3,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.hfad.bookcollectionmanager.data.Doc
 import com.hfad.bookcollectionmanager.databinding.DocBinding
 import com.hfad.bookcollectionmanager.utilities.DocDiffUtil
@@ -25,6 +26,8 @@ class DocAdapter : ListAdapter<Doc, DocAdapter.DocViewHolder>(DocDiffUtil()) {
         }
         fun bind(item: Doc) {
             binding.doc = item
+
+            binding.cover.load(item.cover)
         }
     }
 }
