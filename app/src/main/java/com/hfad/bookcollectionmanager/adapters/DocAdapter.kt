@@ -4,6 +4,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.hfad.bookcollectionmanager.R
 import com.hfad.bookcollectionmanager.data.Doc
 import com.hfad.bookcollectionmanager.databinding.DocBinding
 import com.hfad.bookcollectionmanager.utilities.DocDiffUtil
@@ -26,8 +27,11 @@ class DocAdapter : ListAdapter<Doc, DocAdapter.DocViewHolder>(DocDiffUtil()) {
         }
         fun bind(item: Doc) {
             binding.doc = item
+            binding.cover.load(item.cover){placeholder(R.drawable.no_cover)}
 
-            binding.cover.load(item.cover)
+            if(item.cover.contains("null")){
+                binding.cover.setImageResource(R.drawable.no_cover)
+            }
         }
     }
 }
