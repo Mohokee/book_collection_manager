@@ -1,5 +1,6 @@
 package com.hfad.bookcollectionmanager.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -23,15 +24,33 @@ class ExploreNewBooksViewModel : ViewModel() {
     val category : LiveData<Int>
         get() = _category
 
+    // Selected category chip string name
+    private val _searchCategory = MutableLiveData<String>()
+    val searchCategory : LiveData<String>
+        get()= _searchCategory
+
     //Private status variable of most recent API request, read and write
     private val _status = MutableLiveData<String>()
 
-    //Create a read/write title value for the onClick listener
-    private val _navigateToDoc = MutableLiveData<String?>()
+    //Create a read/write value for each string in document/new book data for the onClick listener
+    private val _docTitle = MutableLiveData<String?>()
+    private val _author = MutableLiveData<List<String>?>()
+    private val _publishDate = MutableLiveData<List<String>?>()
+    private val _isbn = MutableLiveData<List<String>?>()
+    private val _subject = MutableLiveData<List<String>?>()
 
-    //This is the read-only version of title
-    val navigateToBook: LiveData<String?>
-        get() = _navigateToDoc
+    //This is the read-only version for each string in document/new book data
+    val docTitle: LiveData<String?>
+        get() = _docTitle
+
+    val author: LiveData<List<String>?>
+        get() = _author
+    val publishDate: LiveData<List<String>?>
+        get() = _publishDate
+    val isbn: LiveData<List<String>?>
+        get() = _isbn
+    val subject: LiveData<List<String>?>
+        get() = _subject
 
     //Public read only status variable
     val status : LiveData<String>
@@ -40,45 +59,42 @@ class ExploreNewBooksViewModel : ViewModel() {
 
 
     //val _docs : MutableLiveData<List<Doc>> = MutableLiveData<List<Doc>>()
-  /*  val _docs = MutableLiveData<List<Doc>>().also {
-        viewModelScope.launch {
-            try {
-                //"search.json?author=satter&fields=title%20author_name%20subject%20publish_date%20isbn"
-                /*val listResult = OpenLibraryApi.retrofitService.getBooks("search.json?author=satter")
-                 _status.value = "Success: ${listResult.body()?.docs?.get(0)} Books Retrieved"*/
+    /*  val _docs = MutableLiveData<List<Doc>>().also {
+          viewModelScope.launch {
+              try {
+                  //"search.json?author=satter&fields=title%20author_name%20subject%20publish_date%20isbn"
+                  /*val listResult = OpenLibraryApi.retrofitService.getBooks("search.json?author=satter")
+                   _status.value = "Success: ${listResult.body()?.docs?.get(0)} Books Retrieved"*/
+                  val listResult = OpenLibraryApi.retrofitService.getBooks(title = "$searchTerm")
+                  it.value = listResult.body()?.docs
+                  _status.value = "Success: ${listResult.body()?.docs} Books Retrieved"
+              } catch (e: Exception) {
+                  _status.value = "Failure: ${e.message}"
+              }
+          }
+      }*/
 
-                val listResult = OpenLibraryApi.retrofitService.getBooks(title = "$searchTerm")
-                it.value = listResult.body()?.docs
-                _status.value = "Success: ${listResult.body()?.docs} Books Retrieved"
-
-
-
-            } catch (e: Exception) {
-                _status.value = "Failure: ${e.message}"
-            }
-        }
-    }*/
-
-    private  var docMutableList: MutableLiveData<List<Doc>> = MutableLiveData()
-
-    fun test(query :String, categoryId : Int) : MutableLiveData<List<Doc>>{
+    fun test(query:String?,categoryId : Int?) : MutableLiveData<List<Doc>>{
         val listo: MutableLiveData<List<Doc>> = MutableLiveData<List<Doc>>()
         runBlocking {
             val listResult: Response<NewBooks>
-            when (categoryId) {
-                2131231213 -> {
+            when (searchCategory.value) {
+                "title" -> {
+                    Log.v("Error","$query $categoryId")
                     listResult = OpenLibraryApi.retrofitService.getBooks(title = query)
                     listo.value = listResult.body()?.docs
                     _status.value = "Success: ${listResult.body()?.docs} Books Retrieved"
                 }
 
-                2131230816 -> {
+                "author" -> {
+                    Log.v("Error","$query $categoryId")
                     listResult = OpenLibraryApi.retrofitService.getBooks(author = query)
                     listo.value = listResult.body()?.docs
                     _status.value = "Success: ${listResult.body()?.docs} Books Retrieved"
                 }
 
-                2131231171 -> {
+                "subject" -> {
+                    Log.v("Error","$query $categoryId")
                     listResult = OpenLibraryApi.retrofitService.getBooks(subject = query)
                     listo.value = listResult.body()?.docs
                     _status.value = "Success: ${listResult.body()?.docs} Books Retrieved"
@@ -89,27 +105,27 @@ class ExploreNewBooksViewModel : ViewModel() {
     }
 
     val _docs = MutableLiveData<List<Doc>>().also { runBlocking {
-            try {
-                val listResult: Response<NewBooks>
-                //set the search term to the correct category, obtained from the user selected chip
-                when(category.value){
-                    2131231213 -> {listResult = OpenLibraryApi.retrofitService.getBooks(title = "${searchTerm.value}")
-                                it.value = listResult.body()?.docs
-                                _status.value = "Success: ${listResult.body()?.docs} Books Retrieved"}
+        try {
+            val listResult: Response<NewBooks>
+            //set the search term to the correct category, obtained from the user selected chip
+            when(category.value){
+                2131231213 -> {listResult = OpenLibraryApi.retrofitService.getBooks(title = "${searchTerm.value}")
+                    it.value = listResult.body()?.docs
+                    _status.value = "Success: ${listResult.body()?.docs} Books Retrieved"}
 
-                    2131230816 -> {listResult = OpenLibraryApi.retrofitService.getBooks(author = "${searchTerm.value}")
-                                 it.value = listResult.body()?.docs
-                                 _status.value = "Success: ${listResult.body()?.docs} Books Retrieved"}
+                2131230816 -> {listResult = OpenLibraryApi.retrofitService.getBooks(author = "${searchTerm.value}")
+                    it.value = listResult.body()?.docs
+                    _status.value = "Success: ${listResult.body()?.docs} Books Retrieved"}
 
-                    2131231171 -> {listResult = OpenLibraryApi.retrofitService.getBooks(subject = "${searchTerm.value}")
-                                  it.value = listResult.body()?.docs
-                                  _status.value = "Success: ${listResult.body()?.docs} Books Retrieved"}
-                }
-
-            } catch (e: Exception) {
-                _status.value = "Failure: ${e.message}"
+                2131231171 -> {listResult = OpenLibraryApi.retrofitService.getBooks(subject = "${searchTerm.value}")
+                    it.value = listResult.body()?.docs
+                    _status.value = "Success: ${listResult.body()?.docs} Books Retrieved"}
             }
+
+        } catch (e: Exception) {
+            _status.value = "Failure: ${e.message}"
         }
+    }
     }
 
     val docs : LiveData<List<Doc>>
@@ -132,32 +148,35 @@ class ExploreNewBooksViewModel : ViewModel() {
         }
     }
 
-    fun getBooksFromTest(query :String){
-        viewModelScope.launch{
-            try {
-                //"search.json?author=satter&fields=title%20author_name%20subject%20publish_date%20isbn"
-                /*val listResult = OpenLibraryApi.retrofitService.getBooks("search.json?author=satter")
-                 _status.value = "Success: ${listResult.body()?.docs?.get(0)} Books Retrieved"*/
-                val listResult = OpenLibraryApi.retrofitService.getBooks(title = query)
-                //_status.value = "Success: ${listResult.body()?.docs} Books Retrieved"
-                _docs.postValue(listResult.body()!!.docs)
-                docMutableList.value = listResult.body()?.docs
-
-            } catch(e:Exception) {
-                _status.value = "Failure: ${e.message}"
-            }
-        }
-    }
 
     //Set _searchTerm value
-    fun setSearchParams(term : String,category: Int){
+    fun setSearchParams(term : String,category: Int,subject:Int?,title:Int?,author:Int?){
         _searchTerm.value = term
         _category.value = category
+
+        when(category){
+            subject -> _searchCategory.value = "subject"
+            title -> _searchCategory.value = "title"
+            author -> _searchCategory.value = "author"
+        }
+
     }
 
-    //When a book is clicked, send the book id to the book details fragment
-    fun docClicked(title: String){
-        _navigateToDoc.value = title
+    //When a book is clicked, send the new book (doc) info to the book details fragment
+    fun docClicked(title: String, author:List<String>?,publishDate:List<String>?, isbn:List<String>?,subject:List<String>?){
+        _docTitle.value = title
+        _author.value = author
+        _publishDate.value = publishDate
+        _isbn.value = isbn
+        _subject.value = subject
+    }
+
+    fun docNavigationComplete(){
+        _docTitle.value = null
+        _author.value = null
+        _publishDate.value = null
+        _isbn.value = null
+        _subject.value = null
     }
 
 

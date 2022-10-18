@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".NewBookDetailsFragment">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.hfad.bookcollectionmanager.viewmodels.NewBookDetailsViewModel" />
+    </data>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:labelFor="@+id/title"
+        android:text="@string/book_title"/>
+
+    <TextView
+        android:id = "@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="16sp"
+        android:text="@{viewModel.title}"
+        android:layout_marginBottom="10dp"
+       />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:labelFor="@+id/author"
+        android:text="@string/author"/>
+    <TextView
+        android:id = "@+id/author"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="16sp"
+        android:text="@{viewModel.author}"
+        android:layout_marginBottom="10dp"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:labelFor="@+id/subject"
+        android:text="@string/subject"/>
+    <TextView
+        android:id = "@+id/subject"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="16sp"
+        android:text="@{viewModel.subject}"
+        android:layout_marginBottom="10dp"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:labelFor="@+id/publish_date"
+        android:text="@string/date_published"/>
+    <TextView
+        android:id = "@+id/publish_date"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="16sp"
+        android:text="@{viewModel.publishDate}"
+        android:layout_marginBottom="10dp"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:labelFor="@+id/isbn"
+        android:text="@string/isbn"/>
+    <TextView
+        android:id = "@+id/isbn"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="16sp"
+        android:text="@{viewModel.isbn}"
+        android:layout_marginBottom="10dp"
+        />
+
+    <Button
+        android:id="@+id/save_book"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="30dp"
+        android:onClick="@{()-> viewModel.addBook()}"
+        android:text="Add Book to Collection" />
+
+</LinearLayout>
+    </ScrollView>
+</layout>

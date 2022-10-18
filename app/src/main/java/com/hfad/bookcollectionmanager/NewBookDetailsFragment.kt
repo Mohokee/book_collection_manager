@@ -11,14 +11,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.hfad.bookcollectionmanager.data.BookDatabase
-import com.hfad.bookcollectionmanager.databinding.FragmentAddBookBinding
-import com.hfad.bookcollectionmanager.viewmodels.AddBookViewModel
-import com.hfad.bookcollectionmanager.viewmodels.AddBookViewModelFactory
+import com.hfad.bookcollectionmanager.databinding.FragmentNewBookDetailsBinding
+import com.hfad.bookcollectionmanager.viewmodels.NewBookDetailsViewModel
+import com.hfad.bookcollectionmanager.viewmodels.NewBookDetailsViewModelFactory
 
-
-class AddBookFragment : Fragment() {
-    //Binding backing variable, can be null
-    private var _binding : FragmentAddBookBinding? = null
+class NewBookDetailsFragment : Fragment() {
+    private var _binding: FragmentNewBookDetailsBinding? = null
+    private val binding get() = _binding!!
 
     //This fragment will be editing the activity's toolbar
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,25 +25,33 @@ class AddBookFragment : Fragment() {
         setHasOptionsMenu(true)
     }
 
-    //Read only version of binding, cannot be null
-    private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentAddBookBinding.inflate(inflater,container,false)
+        _binding = FragmentNewBookDetailsBinding.inflate(inflater,container,false)
         val view = binding.root
 
         //Build database if nonexistent, get BookDao reference
         val application = requireNotNull(this.activity).application
         val dao = BookDatabase.getInstance(application).bookDao
 
-        //Get ViewModel
-        val viewModelFactory = AddBookViewModelFactory(dao)
-        val viewModel = ViewModelProvider(this,viewModelFactory).get(AddBookViewModel::class.java)
+        val title = NewBookDetailsFragmentArgs.fromBundle(requireArguments()).title
+        val author = NewBookDetailsFragmentArgs.fromBundle(requireArguments()).author
+        val publishDate = NewBookDetailsFragmentArgs.fromBundle(requireArguments()).publishDate
+        val isbn = NewBookDetailsFragmentArgs.fromBundle(requireArguments()).isbn
+        val subject = NewBookDetailsFragmentArgs.fromBundle(requireArguments()).subject
 
-        //Set data binding
+        //Get View Model
+        val viewModelFactory = NewBookDetailsViewModelFactory(title,author,publishDate,isbn,subject,dao)
+        val viewModel = ViewModelProvider(this, viewModelFactory)[NewBookDetailsViewModel::class.java]
+
+        //Gives binding access to viewModel
         binding.viewModel = viewModel
+
+        //Allows observation of livedata
+        binding.lifecycleOwner = viewLifecycleOwner
+        // Inflate the layout for this fragment
 
         //Set observer to Toast after book has been added to the database, then navigate to main collection
         viewModel.status.observe(viewLifecycleOwner, Observer { status ->
@@ -53,19 +60,18 @@ class AddBookFragment : Fragment() {
                 viewModel.resetStatus()
 
                 //Toast
-                Toast.makeText(context,"Book Added",Toast.LENGTH_LONG).show()
+                Toast.makeText(context,"Book Added", Toast.LENGTH_LONG).show()
 
                 //Navigate back to book collection page
                 view.findNavController()
-                    .navigate(R.id.action_addBookFragment_to_bookCollectionFragment)
+                    .navigate(R.id.action_newBookDetailsFragment_to_bookCollectionFragment)
 
             }
         })
 
-        // Inflate the layout for this fragment
         return view
-    }
 
+    }
     //Hide the search icon on the activity's toolbar
     override fun onPrepareOptionsMenu(menu: Menu){
         super.onPrepareOptionsMenu(menu)
@@ -77,5 +83,4 @@ class AddBookFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }

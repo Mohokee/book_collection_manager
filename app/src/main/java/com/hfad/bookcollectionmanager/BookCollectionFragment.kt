@@ -105,7 +105,6 @@ class BookCollectionFragment : Fragment() {
         //If there was a search query in the bar on fragment rotation destruction,
         //expand the search view and set the query to pendingQuery
         if(pendingQuery != null && pendingQuery.isNotEmpty()){
-            //searchBook.expandActionView()
             searchBook.expandActionView()
             searchView.setQuery(pendingQuery,false)
         }

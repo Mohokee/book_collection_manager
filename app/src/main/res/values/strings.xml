@@ -12,5 +12,8 @@
     <string name="book_collection">Book Collection</string>
     <string name="find_new_books">Find New Books</string>
     <string name="subject">Subject</string>
+    <string name="date_published">Date Published</string>
+    <string name="isbn">ISBN</string>
+
 
 </resources>

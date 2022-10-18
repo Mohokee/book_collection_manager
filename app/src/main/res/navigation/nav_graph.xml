@@ -62,6 +62,38 @@
         <action
             android:id="@+id/action_exploreNewBooksFragment_to_bookCollectionFragment"
             app:destination="@id/bookCollectionFragment" />
+        <action
+            android:id="@+id/action_exploreNewBooksFragment_to_newBookDetailsFragment"
+            app:destination="@id/newBookDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newBookDetailsFragment"
+        android:name="com.hfad.bookcollectionmanager.NewBookDetailsFragment"
+        android:label="New Book Details"
+        tools:layout="@layout/fragment_new_book_details">
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_newBookDetailsFragment_to_exploreNewBooksFragment"
+            app:destination="@id/exploreNewBooksFragment"
+            app:popUpTo="@id/exploreNewBooksFragment"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_newBookDetailsFragment_to_bookCollectionFragment"
+            app:destination="@id/bookCollectionFragment" />
+        <argument
+            android:name="author"
+            app:argType="string" />
+        <argument
+            android:name="publish_date"
+            app:argType="string" />
+        <argument
+            android:name="isbn"
+            app:argType="string" />
+        <argument
+            android:name="subject"
+            app:argType="string" />
     </fragment>
 
 
