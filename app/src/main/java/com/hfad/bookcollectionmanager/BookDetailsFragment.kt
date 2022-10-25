@@ -20,7 +20,9 @@ class BookDetailsFragment : Fragment() {
     private var _binding : FragmentBookDetailsBinding? = null
     private val binding get() = _binding!!
 
-    //This fragment will be editing the activity's toolbar
+    /**
+     * This fragment will be editing the activity's toolbar
+     * */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -30,10 +32,15 @@ class BookDetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+        /**
+         * Inflate the layout for this fragment
+         * */
         _binding = FragmentBookDetailsBinding.inflate(inflater,container,false)
         val view = binding.root
 
+        /**
+         * Get the book id of the book clicked on in the main collection from the bundle
+         */
         val bookId = BookDetailsFragmentArgs.fromBundle(requireArguments()).bookId
 
         val application = requireNotNull(this.activity).application
@@ -45,20 +52,30 @@ class BookDetailsFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
+        /**
+         * Set editBook button to go to edit book fragment
+         */
         binding.toEditBookButton.setOnClickListener {
             val action = BookDetailsFragmentDirections
                 .actionBookDetailsFragmentToEditBookFragment(bookId)
             this.findNavController().navigate(action)
         }
 
+        /**
+         * Set status variable to tell when to toast and go back to the main page after book deletion
+         */
         viewModel.status.observe(viewLifecycleOwner, Observer { status ->
             status?.let {
                 viewModel.resetStatus()
 
-                //Toast
+                /**
+                 * Toast
+                 * */
                 Toast.makeText(context,"Book Deleted", Toast.LENGTH_LONG).show()
 
-                //Navigate back to book details page
+                /**
+                 *Back to book details page
+                 */
                 view.findNavController()
                     .navigate(R.id.action_bookDetailsFragment_to_bookCollectionFragment)
 
@@ -68,7 +85,9 @@ class BookDetailsFragment : Fragment() {
         return view
     }
 
-    //Hide the search icon on the activity's toolbar
+    /**
+     * Hide the search icon on the activity's toolbar
+     */
     override fun onPrepareOptionsMenu(menu: Menu){
         super.onPrepareOptionsMenu(menu)
         val item = menu.findItem(R.id.action_search)

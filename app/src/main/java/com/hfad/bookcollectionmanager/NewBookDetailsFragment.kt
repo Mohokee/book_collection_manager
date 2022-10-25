@@ -19,7 +19,9 @@ class NewBookDetailsFragment : Fragment() {
     private var _binding: FragmentNewBookDetailsBinding? = null
     private val binding get() = _binding!!
 
-    //This fragment will be editing the activity's toolbar
+    /**
+     * This fragment will be editing the activity's toolbar
+     * */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -32,7 +34,9 @@ class NewBookDetailsFragment : Fragment() {
         _binding = FragmentNewBookDetailsBinding.inflate(inflater,container,false)
         val view = binding.root
 
-        //Build database if nonexistent, get BookDao reference
+        /**
+         * Build database if nonexistent, get BookDao reference
+         */
         val application = requireNotNull(this.activity).application
         val dao = BookDatabase.getInstance(application).bookDao
 
@@ -42,27 +46,40 @@ class NewBookDetailsFragment : Fragment() {
         val isbn = NewBookDetailsFragmentArgs.fromBundle(requireArguments()).isbn
         val subject = NewBookDetailsFragmentArgs.fromBundle(requireArguments()).subject
 
-        //Get View Model
+        /**
+         * Get View Model
+         * */
         val viewModelFactory = NewBookDetailsViewModelFactory(title,author,publishDate,isbn,subject,dao)
         val viewModel = ViewModelProvider(this, viewModelFactory)[NewBookDetailsViewModel::class.java]
 
-        //Gives binding access to viewModel
+        /**
+         * Gives binding access to viewModel
+         * */
         binding.viewModel = viewModel
 
-        //Allows observation of livedata
+        /**
+         * Allows observation of livedata
+         * */
         binding.lifecycleOwner = viewLifecycleOwner
-        // Inflate the layout for this fragment
 
-        //Set observer to Toast after book has been added to the database, then navigate to main collection
+        /**
+         * Set observer to Toast after book has been added to the database, then navigate to main collection
+         */
         viewModel.status.observe(viewLifecycleOwner, Observer { status ->
             status?.let {
-                //Set to null so it won't be triggered again, using viewModel method
+                /**
+                 * Set to null so it won't be triggered again, using viewModel method
+                 * */
                 viewModel.resetStatus()
 
-                //Toast
+                /**
+                 * Toast
+                 * */
                 Toast.makeText(context,"Book Added", Toast.LENGTH_LONG).show()
 
-                //Navigate back to book collection page
+                /**
+                 * Navigate back to book collection page
+                 * */
                 view.findNavController()
                     .navigate(R.id.action_newBookDetailsFragment_to_bookCollectionFragment)
 
@@ -72,7 +89,9 @@ class NewBookDetailsFragment : Fragment() {
         return view
 
     }
-    //Hide the search icon on the activity's toolbar
+    /**
+     * Hide the search icon on the activity's toolbar
+     */
     override fun onPrepareOptionsMenu(menu: Menu){
         super.onPrepareOptionsMenu(menu)
         val item = menu.findItem(R.id.action_search)

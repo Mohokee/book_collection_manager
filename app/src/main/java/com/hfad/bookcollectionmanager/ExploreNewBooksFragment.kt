@@ -1,7 +1,6 @@
 package com.hfad.bookcollectionmanager
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
@@ -9,7 +8,6 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hfad.bookcollectionmanager.adapters.DocAdapter
@@ -23,9 +21,14 @@ class ExploreNewBooksFragment : Fragment() {
     private var _binding: FragmentExploreNewBooksBinding? = null
     private val binding get() = _binding!!
 
-    //This fragment will be editing the activity's toolbar
+    /**
+     * This fragment will be editing the activity's toolbar
+     * */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        /**
+         * Set custom options menu
+         */
         setHasOptionsMenu(true)
     }
 
@@ -33,33 +36,45 @@ class ExploreNewBooksFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        //Set Binding var
+        /**
+         * Set Binding var
+         * */
         _binding = FragmentExploreNewBooksBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        //Set Application value
-        val application = requireNotNull(this.activity).application
 
-        //View Model
+        /**
+         * View Model
+         * */
         val viewModel: ExploreNewBooksViewModel by viewModels()
 
-        //Gives binding access to viewModel
+        /**
+         *  Gives binding access to viewModel
+         */
         binding.viewModel = viewModel
 
-        //Allows observation of livedata
+        /**
+         * Allows observation of livedata
+         */
         binding.lifecycleOwner = viewLifecycleOwner
 
-        //Livedata vals for new Document elements
+        /**
+         * Livedata vals for new Document elements
+         * */
         val docTitle = viewModel.docTitle
         val docAuthor = viewModel.author
         val docPublish = viewModel.publishDate
         val docIsbn = viewModel.isbn
         val docSubject = viewModel.subject
 
-        //set layout manager for recycler view
+        /**
+         * set layout manager for recycler view
+         */
         binding.newBooksView.layoutManager = LinearLayoutManager(requireContext())
 
-        //Set the recyclerView adapter
+        /**
+         * Set the recyclerView adapter
+         * */
         val adapter = DocAdapter { title, author, publishDate, isbn, subject ->
             viewModel.docClicked(
                 title ?: "Untitled",
@@ -68,19 +83,30 @@ class ExploreNewBooksFragment : Fragment() {
                 isbn ?: listOf("None"),
                 subject ?: listOf("None")
             )
+            /**
+             * Navigate to new book details on click, and send new book details in bundle as Strings
+             */
             val action = ExploreNewBooksFragmentDirections
                 .actionExploreNewBooksFragmentToNewBookDetailsFragment(
                     docTitle.value.toString(),
-                    docAuthor.value.toString(),
-                    docPublish.value.toString(),
-                    docIsbn.value.toString(),
-                    docSubject.value.toString()
+                    docAuthor.value?.joinToString(",") ?: "None",
+                    docPublish.value?.joinToString(",") ?: "None",
+                    docIsbn.value?.joinToString(",") ?: "None",
+                    docSubject.value?.joinToString(",") ?: "None"
                 )
+            /**
+             * Navigate to new book details page
+             */
             this.findNavController().navigate(action)
+            /**
+             * Set values to null once the page has navigated
+             */
             viewModel.docNavigationComplete()
-            Log.v("VERBOSE", "${docAuthor.value}}")
         }
 
+        /**
+         * Send search query to API
+         */
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query != null) {
@@ -95,22 +121,11 @@ class ExploreNewBooksFragment : Fragment() {
                         author
                     )
 
-                    // 10/2/2022 - trying to get id from each chip from text id so it doesn't matter if it gets
-                    // changed when re-downloaded
-                    Log.v("VERBOSE", "${binding.subject.id}")
-                    //Should match this one for subject
-                    Log.v("VERBOSE", "$query ${binding.searchChipGroup.checkedChipId}")
-
-                    Log.v("VERBOSE", "{${viewModel.searchTerm.value} ${viewModel.category.value}}")
-                    Log.v(
-                        "VERBOSE",
-                        viewModel.test(
-                            viewModel.searchTerm.value,
-                            viewModel.category.value
-                        ).value.toString()
-                    )
+                    /**
+                     * Submit the list the query returned to the recycler view adapter
+                     */
                     adapter.submitList(
-                        viewModel.test(
+                        viewModel.submitSearch(
                             viewModel.searchTerm.value,
                             viewModel.category.value
                         ).value
@@ -124,22 +139,23 @@ class ExploreNewBooksFragment : Fragment() {
             }
         })
 
-
-        //Set observer for openlibrary api livedata, send it to the recycler view's adapter
-        viewModel.docs.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                binding.test.text = it.size.toString()
-                adapter.submitList(it)
-            }
-        })
-
+        /**
+         * Set adapter
+         */
         binding.newBooksView.adapter = adapter
 
-        // Inflate the layout for this fragment
+        /**
+         * Inflate the layout for this fragment
+         */
+
         return view
     }
-    //Hide the search icon on the activity's toolbar
-    override fun onPrepareOptionsMenu(menu: Menu){
+
+    /**
+     * Hide the search icon on the activity's toolbar
+     */
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)
         val item = menu.findItem(R.id.action_search)
         item.isVisible = false

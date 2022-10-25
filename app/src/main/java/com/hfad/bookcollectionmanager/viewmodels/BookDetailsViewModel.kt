@@ -9,20 +9,34 @@ import kotlinx.coroutines.launch
 
 class BookDetailsViewModel(bookId:Long, val dao : BookDao): ViewModel() {
     val book = dao.get(bookId)
-    //create a mutable livedata value to observe so it knows when to Toast and navigate back to
-    // the book collection page
+    /**
+     * Create a mutable livedata value to observe so it knows when to Toast and navigate back to
+     * the book collection page
+     * */
     private val _status = MutableLiveData<Boolean?>()
-    //read only public version of status val
+
+    /**
+     * Read only public version of status val
+     */
     val status : LiveData<Boolean?>
         get() = _status
 
+    /**
+     * Delete the book from the room database
+     */
     fun deleteBook(){
         viewModelScope.launch{
             dao.delete(book.value!!)
         }
+        /**
+         * Status is true, so it's time to toast
+         */
         _status.value = true
     }
 
+    /**
+     * Reset Toast status livedata to null
+     */
     fun resetStatus(){
         _status.value = null
     }

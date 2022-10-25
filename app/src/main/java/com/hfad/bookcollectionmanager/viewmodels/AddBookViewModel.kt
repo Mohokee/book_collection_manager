@@ -8,10 +8,9 @@ import com.hfad.bookcollectionmanager.data.Book
 import com.hfad.bookcollectionmanager.data.BookDao
 import kotlinx.coroutines.launch
 
-/*
+/**
 *This View Model contains the logic that allows a user
 * to add a book to the book database
-*
 * */
 
 class AddBookViewModel(val dao:BookDao) : ViewModel() {
@@ -20,23 +19,31 @@ class AddBookViewModel(val dao:BookDao) : ViewModel() {
     var addTags = ""
     var addDescription = ""
 
-    //create a mutable livedata value to observe from AddBookFragment so it knows when to Toast
+    /**
+     * Create a mutable livedata value to observe from AddBookFragment so it knows when to Toast
+     * */
     private val _status = MutableLiveData<Boolean?>()
     //read only public version of status val
     val status : LiveData<Boolean?>
         get() = _status
 
-
+    /**
+     * Add a new book to the Room database, inserting with the DAO
+     */
     fun addBook() {
         viewModelScope.launch {
             val book = Book(title = addTitle, author = addAuthor,
                 tags = addTags, description = addDescription)
             dao.insert(book)
         }
-        //It's time for the fragment to Toast
+        /**
+         * It's time for the fragment to Toast
+         * */
         _status.value = true
     }
-    //reset status val back to null
+    /**
+     * reset status val back to null
+     */
     fun resetStatus() {
         _status.value = null
     }

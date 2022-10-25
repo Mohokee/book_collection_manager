@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_bookCollectionFragment_to_bookDetailsFragment"
             app:destination="@id/bookDetailsFragment" />
+        <action
+            android:id="@+id/action_bookCollectionFragment_to_helpFragment"
+            app:destination="@id/helpFragment" />
     </fragment>
     <fragment
         android:id="@+id/addBookFragment"
@@ -94,6 +97,15 @@
         <argument
             android:name="subject"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/helpFragment"
+        android:name="com.hfad.bookcollectionmanager.HelpFragment"
+        android:label="Help"
+        tools:layout="@layout/fragment_help">
+        <action
+            android:id="@+id/action_helpFragment_to_bookCollectionFragment"
+            app:destination="@id/bookCollectionFragment" />
     </fragment>
 
 

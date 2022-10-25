@@ -1,7 +1,8 @@
 package com.hfad.bookcollectionmanager.data
 
 import com.squareup.moshi.Json
-
+/**Define Database name, column names, and data types
+*Doc/New Book*/
 data class Doc(
     @Json(name="author_name")
     val authorName: List<String>? = null,

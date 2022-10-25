@@ -9,15 +9,15 @@ import androidx.room.RoomDatabase
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.internal.synchronized
 
-//Creates class that creates database instance in a companion object so
-//
+/**Creates class that creates database instance in a companion object so
+* that it doesn't require object initialization to be called
+ */
 @Database(entities = [Book::class], version = 7, exportSchema = false)
 abstract class BookDatabase :RoomDatabase() {
-    //define dao
+    /**
+     * define dao
+     * */
     abstract val bookDao: BookDao
-
-    //get database instance
-    //abstract fun getBookDao() : BookDao
 
     companion object {
         @Volatile

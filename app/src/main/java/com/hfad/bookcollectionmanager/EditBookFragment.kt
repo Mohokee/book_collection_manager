@@ -19,7 +19,9 @@ class EditBookFragment : Fragment() {
     private var _binding : FragmentEditBookBinding? = null
     private val binding get() = _binding!!
 
-    //This fragment will be editing the activity's toolbar
+    /**
+     * This fragment will be editing the activity's toolbar
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -44,24 +46,36 @@ class EditBookFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
+        /**
+         * Status variable observed to tell when to toast about saved changes
+         * and navigate back to main page
+         */
         viewModel.status.observe(viewLifecycleOwner, Observer { status ->
             status?.let {
                 viewModel.resetStatus()
 
-                //Toast
+                /**
+                 * Toast
+                 * */
                 Toast.makeText(context,"Changes Saved", Toast.LENGTH_LONG).show()
 
-                //Navigate back to book details page
+                /**
+                 * Navigate back to book details page
+                 */
                 view.findNavController()
                     .navigate(R.id.action_editBookFragment_to_bookCollectionFragment)
 
             }
         })
-        // Inflate the layout for this fragment
+        /**
+         * Inflate the layout for this fragment
+         * */
         return view
     }
 
-    //Hide the search icon on the activity's toolbar
+    /**
+     * Hide the search icon on the activity's toolbar
+     * */
     override fun onPrepareOptionsMenu(menu: Menu){
         super.onPrepareOptionsMenu(menu)
         val item = menu.findItem(R.id.action_search)

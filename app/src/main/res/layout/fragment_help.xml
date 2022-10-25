@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HelpFragment">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:text="This book collection app can be used to manage a personal library or to create a reading list.\n\n
+ To add a book manually, tap the + button in the lower right-hand corner.\n\n
+
+To add a book from the internet, tap the three-dot menu and select “Explore New Books”. Enter your search criteria, select its category,
+and touch the submit icon. Next, scroll down to the desired book and tap on it. Press the “Add to Collection” Button. This app gets its internet book list from OpenLibrary.com.\n\n
+
+To edit a book’s details, tap on the book’s cover from the main collection page. Tap the “Edit Book” button. Change the book’s fields as desired and tap save.\n\n
+
+To delete a book, tap on a book’s cover from the home screen, then press “Delete book”\n\n
+
+
+Book Collection App
+Copyright 2022 Jasmin Kissinger
+" />
+</androidx.core.widget.NestedScrollView>

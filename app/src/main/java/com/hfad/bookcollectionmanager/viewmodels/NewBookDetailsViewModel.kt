@@ -18,23 +18,35 @@ class NewBookDetailsViewModel(
     val dao: BookDao
 ) : ViewModel() {
 
-    //create a mutable livedata value to observe from AddBookFragment so it knows when to Toast
+    /**
+     * Create a mutable livedata value to observe from AddBookFragment so it knows when to Toast
+     */
     private val _status = MutableLiveData<Boolean?>()
-    //read only public version of status val
+
+    /**
+     * Read only public version of status val
+     */
     val status : LiveData<Boolean?>
         get() = _status
 
-
+    /**
+     * Add book to Room database
+     */
     fun addBook() {
         viewModelScope.launch {
             val book = Book(title = title, author = author,
                 tags = subject, description = "ISBN: $isbn \n Date Published: $publishDate ")
             dao.insert(book)
         }
-        //It's time for the fragment to Toast
+        /**
+         * It's time for the fragment to Toast
+         */
         _status.value = true
     }
-    //reset status val back to null
+    /**
+     * Reset status val back to null
+     */
+
     fun resetStatus() {
         _status.value = null
     }

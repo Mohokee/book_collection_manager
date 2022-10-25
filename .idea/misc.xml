@@ -8,6 +8,7 @@
         <entry key="..\:/Users/Jasmin/AndroidStudioProjects/BookCollectionManager/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.1" />
         <entry key="..\:/Users/Jasmin/AndroidStudioProjects/BookCollectionManager/app/src/main/res/font-v26/ibarrareal.xml" value="0.2546875" />
         <entry key="..\:/Users/Jasmin/AndroidStudioProjects/BookCollectionManager/app/src/main/res/font/ibarrareal.xml" value="0.17222222222222222" />
+        <entry key="..\:/Users/Jasmin/AndroidStudioProjects/BookCollectionManager/app/src/main/res/layout-land/fragment_book_collection.xml" value="0.38828828828828826" />
         <entry key="..\:/Users/Jasmin/AndroidStudioProjects/BookCollectionManager/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/Jasmin/AndroidStudioProjects/BookCollectionManager/app/src/main/res/layout/book.xml" value="0.22" />
         <entry key="..\:/Users/Jasmin/AndroidStudioProjects/BookCollectionManager/app/src/main/res/layout/doc.xml" value="0.5573997233748271" />
@@ -17,6 +18,7 @@
         <entry key="..\:/Users/Jasmin/AndroidStudioProjects/BookCollectionManager/app/src/main/res/layout/fragment_book_details.xml" value="0.1" />
         <entry key="..\:/Users/Jasmin/AndroidStudioProjects/BookCollectionManager/app/src/main/res/layout/fragment_edit_book.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Jasmin/AndroidStudioProjects/BookCollectionManager/app/src/main/res/layout/fragment_explore_new_books.xml" value="0.33" />
+        <entry key="..\:/Users/Jasmin/AndroidStudioProjects/BookCollectionManager/app/src/main/res/layout/fragment_help.xml" value="0.25" />
         <entry key="..\:/Users/Jasmin/AndroidStudioProjects/BookCollectionManager/app/src/main/res/layout/fragment_new_book_details.xml" value="0.33" />
         <entry key="..\:/Users/Jasmin/AndroidStudioProjects/BookCollectionManager/app/src/main/res/layout/new_book.xml" value="0.2750478621569879" />
         <entry key="..\:/Users/Jasmin/AndroidStudioProjects/BookCollectionManager/app/src/main/res/menu/main_menu.xml" value="0.22447916666666667" />

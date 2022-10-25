@@ -5,7 +5,9 @@ import androidx.room.Entity
 
 import androidx.room.PrimaryKey
 
-//Define Database name, column names, and data types
+/**
+ *Define Book Database name, column names, and data types
+ */
 @Entity(tableName = "book_table")
 data class Book(
     @PrimaryKey(autoGenerate = true)

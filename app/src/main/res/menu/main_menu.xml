@@ -26,4 +26,10 @@
         android:id="@+id/addBookFragment"
         android:title="@string/add_book"
         app:showAsAction="never"/>
+    <item
+        android:id="@+id/helpFragment"
+        android:title="@string/help"
+        android:icon="@drawable/ic_baseline_help_24"
+        app:showAsAction="always"
+        />
 </menu>
