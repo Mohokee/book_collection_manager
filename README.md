@@ -10,6 +10,3 @@ To edit a book’s details, tap on the book’s cover from the main collection p
 
 To delete a book, tap on a book’s cover from the home screen, then press “Delete book”
 
-
-Book Collection App
-Copyright 2022 Jasmin Kissinger
